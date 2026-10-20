@@ -4,7 +4,7 @@
   "roadmapVersion": 1,
   "planVerified": true,
   "plannedPrCount": 47,
-  "observedAt": "2026-10-20T19:43:00Z",
+  "observedAt": "2026-10-20T19:44:00Z",
   "units": [
     {
       "id": "BNK-001",
@@ -580,12 +580,12 @@
       "id": 4941443616,
       "number": 1,
       "title": "BNK-001: Foundational bank-neutral engine, tenant controls and canonical roadmap",
-      "state": "open",
+      "state": "closed",
       "url": "https://github.com/neophilism/Prosperity-Banking-Engine/pull/1",
       "createdAt": "2026-10-20T19:42:20Z",
-      "updatedAt": "2026-10-20T19:42:34Z",
-      "mergedAt": null,
-      "closedAt": null,
+      "updatedAt": "2026-10-20T19:43:15Z",
+      "mergedAt": "2026-10-20T19:43:15Z",
+      "closedAt": "2026-10-20T19:43:15Z",
       "draft": false
     }
   ]
