@@ -1,0 +1,592 @@
+{
+  "schemaVersion": 1,
+  "repository": "neophilism/Prosperity-Banking-Engine",
+  "roadmapVersion": 1,
+  "planVerified": true,
+  "plannedPrCount": 47,
+  "observedAt": "2026-10-20T19:43:00Z",
+  "units": [
+    {
+      "id": "BNK-001",
+      "title": "Monorepo/services inventory, ownership and CODEOWNERS",
+      "origin": "original",
+      "prs": [
+        1
+      ],
+      "dependsOn": [],
+      "externalDependencies": [],
+      "externalPrerequisites": [],
+      "acceptance": "Implementation, automated tests, documented evidence and independent acceptance required."
+    },
+    {
+      "id": "BNK-002",
+      "title": "Threat model and data classification",
+      "origin": "original",
+      "prs": [],
+      "dependsOn": [
+        "BNK-001"
+      ],
+      "externalDependencies": [],
+      "externalPrerequisites": [],
+      "acceptance": "Implementation, automated tests, documented evidence and independent acceptance required."
+    },
+    {
+      "id": "BNK-003",
+      "title": "CI, ephemeral environments and secrets scanning",
+      "origin": "original",
+      "prs": [],
+      "dependsOn": [
+        "BNK-002"
+      ],
+      "externalDependencies": [],
+      "externalPrerequisites": [],
+      "acceptance": "Implementation, automated tests, documented evidence and independent acceptance required."
+    },
+    {
+      "id": "BNK-004",
+      "title": "Identity, roles and MFA",
+      "origin": "original",
+      "prs": [],
+      "dependsOn": [
+        "BNK-003"
+      ],
+      "externalDependencies": [],
+      "externalPrerequisites": [],
+      "acceptance": "Implementation, automated tests, documented evidence and independent acceptance required."
+    },
+    {
+      "id": "BNK-005",
+      "title": "Consent and revocation ledger",
+      "origin": "original",
+      "prs": [],
+      "dependsOn": [
+        "BNK-004"
+      ],
+      "externalDependencies": [],
+      "externalPrerequisites": [],
+      "acceptance": "Implementation, automated tests, documented evidence and independent acceptance required."
+    },
+    {
+      "id": "BNK-006",
+      "title": "Deny-by-default policy gateway",
+      "origin": "original",
+      "prs": [],
+      "dependsOn": [
+        "BNK-005"
+      ],
+      "externalDependencies": [],
+      "externalPrerequisites": [],
+      "acceptance": "Implementation, automated tests, documented evidence and independent acceptance required."
+    },
+    {
+      "id": "BNK-007",
+      "title": "Event schemas, outbox and idempotency",
+      "origin": "original",
+      "prs": [],
+      "dependsOn": [
+        "BNK-006"
+      ],
+      "externalDependencies": [],
+      "externalPrerequisites": [],
+      "acceptance": "Implementation, automated tests, documented evidence and independent acceptance required."
+    },
+    {
+      "id": "BNK-008",
+      "title": "Bank adapter contract and fake ledger",
+      "origin": "original",
+      "prs": [],
+      "dependsOn": [
+        "BNK-007"
+      ],
+      "externalDependencies": [],
+      "externalPrerequisites": [],
+      "acceptance": "Implementation, automated tests, documented evidence and independent acceptance required."
+    },
+    {
+      "id": "BNK-009",
+      "title": "Tenant-isolated evidence vault",
+      "origin": "original",
+      "prs": [],
+      "dependsOn": [
+        "BNK-008"
+      ],
+      "externalDependencies": [],
+      "externalPrerequisites": [],
+      "acceptance": "Implementation, automated tests, documented evidence and independent acceptance required."
+    },
+    {
+      "id": "BNK-010",
+      "title": "Observability and audit sink",
+      "origin": "original",
+      "prs": [],
+      "dependsOn": [
+        "BNK-009"
+      ],
+      "externalDependencies": [],
+      "externalPrerequisites": [],
+      "acceptance": "Implementation, automated tests, documented evidence and independent acceptance required."
+    },
+    {
+      "id": "BNK-011",
+      "title": "Banking home and balance freshness",
+      "origin": "original",
+      "prs": [],
+      "dependsOn": [
+        "BNK-010"
+      ],
+      "externalDependencies": [],
+      "externalPrerequisites": [],
+      "acceptance": "Implementation, automated tests, documented evidence and independent acceptance required."
+    },
+    {
+      "id": "BNK-012",
+      "title": "Transaction normalization",
+      "origin": "original",
+      "prs": [],
+      "dependsOn": [
+        "BNK-011"
+      ],
+      "externalDependencies": [],
+      "externalPrerequisites": [],
+      "acceptance": "Implementation, automated tests, documented evidence and independent acceptance required."
+    },
+    {
+      "id": "BNK-013",
+      "title": "Cash-flow forecasting",
+      "origin": "original",
+      "prs": [],
+      "dependsOn": [
+        "BNK-012"
+      ],
+      "externalDependencies": [],
+      "externalPrerequisites": [],
+      "acceptance": "Implementation, automated tests, documented evidence and independent acceptance required."
+    },
+    {
+      "id": "BNK-014",
+      "title": "Grounded banker chat",
+      "origin": "original",
+      "prs": [],
+      "dependsOn": [
+        "BNK-013"
+      ],
+      "externalDependencies": [],
+      "externalPrerequisites": [],
+      "acceptance": "Implementation, automated tests, documented evidence and independent acceptance required."
+    },
+    {
+      "id": "BNK-015",
+      "title": "Agent scheduling and budgets",
+      "origin": "original",
+      "prs": [],
+      "dependsOn": [
+        "BNK-014"
+      ],
+      "externalDependencies": [],
+      "externalPrerequisites": [],
+      "acceptance": "Implementation, automated tests, documented evidence and independent acceptance required."
+    },
+    {
+      "id": "BNK-016",
+      "title": "Hardship assistance workflows",
+      "origin": "original",
+      "prs": [],
+      "dependsOn": [
+        "BNK-015"
+      ],
+      "externalDependencies": [],
+      "externalPrerequisites": [],
+      "acceptance": "Implementation, automated tests, documented evidence and independent acceptance required."
+    },
+    {
+      "id": "BNK-017",
+      "title": "Overdraft opt-in interface",
+      "origin": "original",
+      "prs": [],
+      "dependsOn": [
+        "BNK-016"
+      ],
+      "externalDependencies": [],
+      "externalPrerequisites": [],
+      "acceptance": "Implementation, automated tests, documented evidence and independent acceptance required."
+    },
+    {
+      "id": "BNK-018",
+      "title": "Rail-specific overdraft policy",
+      "origin": "original",
+      "prs": [],
+      "dependsOn": [
+        "BNK-017"
+      ],
+      "externalDependencies": [],
+      "externalPrerequisites": [],
+      "acceptance": "Implementation, automated tests, documented evidence and independent acceptance required."
+    },
+    {
+      "id": "BNK-019",
+      "title": "Bound step-up approvals",
+      "origin": "original",
+      "prs": [],
+      "dependsOn": [
+        "BNK-018"
+      ],
+      "externalDependencies": [],
+      "externalPrerequisites": [],
+      "acceptance": "Implementation, automated tests, documented evidence and independent acceptance required."
+    },
+    {
+      "id": "BNK-020",
+      "title": "Disputes and human handoff",
+      "origin": "original",
+      "prs": [],
+      "dependsOn": [
+        "BNK-019"
+      ],
+      "externalDependencies": [],
+      "externalPrerequisites": [],
+      "acceptance": "Implementation, automated tests, documented evidence and independent acceptance required."
+    },
+    {
+      "id": "BNK-021",
+      "title": "Founder onboarding and IP rights",
+      "origin": "original",
+      "prs": [],
+      "dependsOn": [
+        "BNK-020"
+      ],
+      "externalDependencies": [],
+      "externalPrerequisites": [],
+      "acceptance": "Implementation, automated tests, documented evidence and independent acceptance required."
+    },
+    {
+      "id": "BNK-022",
+      "title": "Project workspace and milestones",
+      "origin": "original",
+      "prs": [],
+      "dependsOn": [
+        "BNK-021"
+      ],
+      "externalDependencies": [],
+      "externalPrerequisites": [],
+      "acceptance": "Implementation, automated tests, documented evidence and independent acceptance required."
+    },
+    {
+      "id": "BNK-023",
+      "title": "Claims and evidence ledger",
+      "origin": "original",
+      "prs": [],
+      "dependsOn": [
+        "BNK-022"
+      ],
+      "externalDependencies": [],
+      "externalPrerequisites": [],
+      "acceptance": "Implementation, automated tests, documented evidence and independent acceptance required."
+    },
+    {
+      "id": "BNK-024",
+      "title": "Specialist agents and tools",
+      "origin": "original",
+      "prs": [],
+      "dependsOn": [
+        "BNK-023"
+      ],
+      "externalDependencies": [],
+      "externalPrerequisites": [],
+      "acceptance": "Implementation, automated tests, documented evidence and independent acceptance required."
+    },
+    {
+      "id": "BNK-025",
+      "title": "Technical feasibility sandbox",
+      "origin": "original",
+      "prs": [],
+      "dependsOn": [
+        "BNK-024"
+      ],
+      "externalDependencies": [],
+      "externalPrerequisites": [],
+      "acceptance": "Implementation, automated tests, documented evidence and independent acceptance required."
+    },
+    {
+      "id": "BNK-026",
+      "title": "Market validation",
+      "origin": "original",
+      "prs": [],
+      "dependsOn": [
+        "BNK-025"
+      ],
+      "externalDependencies": [],
+      "externalPrerequisites": [],
+      "acceptance": "Implementation, automated tests, documented evidence and independent acceptance required."
+    },
+    {
+      "id": "BNK-027",
+      "title": "Pricing and unit economics",
+      "origin": "original",
+      "prs": [],
+      "dependsOn": [
+        "BNK-026"
+      ],
+      "externalDependencies": [],
+      "externalPrerequisites": [],
+      "acceptance": "Implementation, automated tests, documented evidence and independent acceptance required."
+    },
+    {
+      "id": "BNK-028",
+      "title": "IP and compliance issue spotting",
+      "origin": "original",
+      "prs": [],
+      "dependsOn": [
+        "BNK-027"
+      ],
+      "externalDependencies": [],
+      "externalPrerequisites": [],
+      "acceptance": "Implementation, automated tests, documented evidence and independent acceptance required."
+    },
+    {
+      "id": "BNK-029",
+      "title": "Development sprints",
+      "origin": "original",
+      "prs": [],
+      "dependsOn": [
+        "BNK-028"
+      ],
+      "externalDependencies": [],
+      "externalPrerequisites": [],
+      "acceptance": "Implementation, automated tests, documented evidence and independent acceptance required."
+    },
+    {
+      "id": "BNK-030",
+      "title": "Independent evidence verification",
+      "origin": "original",
+      "prs": [],
+      "dependsOn": [
+        "BNK-029"
+      ],
+      "externalDependencies": [],
+      "externalPrerequisites": [],
+      "acceptance": "Implementation, automated tests, documented evidence and independent acceptance required."
+    },
+    {
+      "id": "BNK-031",
+      "title": "Funding matching and referrals",
+      "origin": "original",
+      "prs": [],
+      "dependsOn": [
+        "BNK-030"
+      ],
+      "externalDependencies": [],
+      "externalPrerequisites": [],
+      "acceptance": "Implementation, automated tests, documented evidence and independent acceptance required."
+    },
+    {
+      "id": "BNK-032",
+      "title": "Allocation fairness and cost reporting",
+      "origin": "original",
+      "prs": [],
+      "dependsOn": [
+        "BNK-031"
+      ],
+      "externalDependencies": [],
+      "externalPrerequisites": [],
+      "acceptance": "Implementation, automated tests, documented evidence and independent acceptance required."
+    },
+    {
+      "id": "BNK-033",
+      "title": "Identity and screening partner integration",
+      "origin": "original",
+      "prs": [],
+      "dependsOn": [
+        "BNK-032"
+      ],
+      "externalDependencies": [],
+      "externalPrerequisites": [
+        "Regulated partner approval for live onboarding"
+      ],
+      "acceptance": "Implementation, automated tests, documented evidence and independent acceptance required."
+    },
+    {
+      "id": "BNK-034",
+      "title": "Deposits and reconciliation",
+      "origin": "original",
+      "prs": [],
+      "dependsOn": [
+        "BNK-033"
+      ],
+      "externalDependencies": [],
+      "externalPrerequisites": [],
+      "acceptance": "Implementation, automated tests, documented evidence and independent acceptance required."
+    },
+    {
+      "id": "BNK-035",
+      "title": "Payments lifecycle and returns",
+      "origin": "original",
+      "prs": [],
+      "dependsOn": [
+        "BNK-034"
+      ],
+      "externalDependencies": [],
+      "externalPrerequisites": [],
+      "acceptance": "Implementation, automated tests, documented evidence and independent acceptance required."
+    },
+    {
+      "id": "BNK-036",
+      "title": "Overdraft network certification",
+      "origin": "original",
+      "prs": [],
+      "dependsOn": [
+        "BNK-035"
+      ],
+      "externalDependencies": [],
+      "externalPrerequisites": [],
+      "acceptance": "Implementation, automated tests, documented evidence and independent acceptance required."
+    },
+    {
+      "id": "BNK-037",
+      "title": "Credit explanations",
+      "origin": "original",
+      "prs": [],
+      "dependsOn": [
+        "BNK-036"
+      ],
+      "externalDependencies": [],
+      "externalPrerequisites": [],
+      "acceptance": "Implementation, automated tests, documented evidence and independent acceptance required."
+    },
+    {
+      "id": "BNK-038",
+      "title": "Fraud and AML handoffs",
+      "origin": "original",
+      "prs": [],
+      "dependsOn": [
+        "BNK-037"
+      ],
+      "externalDependencies": [],
+      "externalPrerequisites": [],
+      "acceptance": "Implementation, automated tests, documented evidence and independent acceptance required."
+    },
+    {
+      "id": "BNK-039",
+      "title": "Affiliate/vendor controls",
+      "origin": "original",
+      "prs": [],
+      "dependsOn": [
+        "BNK-038"
+      ],
+      "externalDependencies": [],
+      "externalPrerequisites": [],
+      "acceptance": "Implementation, automated tests, documented evidence and independent acceptance required."
+    },
+    {
+      "id": "BNK-040",
+      "title": "Regulatory reporting",
+      "origin": "original",
+      "prs": [],
+      "dependsOn": [
+        "BNK-039"
+      ],
+      "externalDependencies": [],
+      "externalPrerequisites": [],
+      "acceptance": "Implementation, automated tests, documented evidence and independent acceptance required."
+    },
+    {
+      "id": "BNK-041",
+      "title": "Failure injection and recovery",
+      "origin": "original",
+      "prs": [],
+      "dependsOn": [
+        "BNK-040"
+      ],
+      "externalDependencies": [],
+      "externalPrerequisites": [],
+      "acceptance": "Implementation, automated tests, documented evidence and independent acceptance required."
+    },
+    {
+      "id": "BNK-042",
+      "title": "AI banker safety evaluation",
+      "origin": "original",
+      "prs": [],
+      "dependsOn": [
+        "BNK-041"
+      ],
+      "externalDependencies": [],
+      "externalPrerequisites": [],
+      "acceptance": "Implementation, automated tests, documented evidence and independent acceptance required."
+    },
+    {
+      "id": "BNK-043",
+      "title": "Studio IP leakage evaluation",
+      "origin": "original",
+      "prs": [],
+      "dependsOn": [
+        "BNK-042"
+      ],
+      "externalDependencies": [],
+      "externalPrerequisites": [],
+      "acceptance": "Implementation, automated tests, documented evidence and independent acceptance required."
+    },
+    {
+      "id": "BNK-044",
+      "title": "Accessibility and disputes",
+      "origin": "original",
+      "prs": [],
+      "dependsOn": [
+        "BNK-043"
+      ],
+      "externalDependencies": [],
+      "externalPrerequisites": [],
+      "acceptance": "Implementation, automated tests, documented evidence and independent acceptance required."
+    },
+    {
+      "id": "BNK-045",
+      "title": "Limited pilot gates",
+      "origin": "original",
+      "prs": [],
+      "dependsOn": [
+        "BNK-044"
+      ],
+      "externalDependencies": [],
+      "externalPrerequisites": [],
+      "acceptance": "Implementation, automated tests, documented evidence and independent acceptance required."
+    },
+    {
+      "id": "BNK-046",
+      "title": "Production cutover and signoffs",
+      "origin": "original",
+      "prs": [],
+      "dependsOn": [
+        "BNK-045"
+      ],
+      "externalDependencies": [],
+      "externalPrerequisites": [
+        "All required legal, security, board and regulatory approvals"
+      ],
+      "acceptance": "Implementation, automated tests, documented evidence and independent acceptance required."
+    },
+    {
+      "id": "BNK-047",
+      "title": "Customer outcome and cost dashboards",
+      "origin": "original",
+      "prs": [],
+      "dependsOn": [
+        "BNK-046"
+      ],
+      "externalDependencies": [],
+      "externalPrerequisites": [],
+      "acceptance": "Implementation, automated tests, documented evidence and independent acceptance required."
+    }
+  ],
+  "pullRequests": [
+    {
+      "id": 4941443616,
+      "number": 1,
+      "title": "BNK-001: Foundational bank-neutral engine, tenant controls and canonical roadmap",
+      "state": "open",
+      "url": "https://github.com/neophilism/Prosperity-Banking-Engine/pull/1",
+      "createdAt": "2026-10-20T19:42:20Z",
+      "updatedAt": "2026-10-20T19:42:34Z",
+      "mergedAt": null,
+      "closedAt": null,
+      "draft": false
+    }
+  ]
+}

@@ -1,0 +1,14 @@
+{
+  "name": "prosperity-banking-engine",
+  "version": "0.1.0",
+  "type": "module",
+  "private": true,
+  "engines": {
+    "node": ">=22"
+  },
+  "scripts": {
+    "test": "node --test",
+    "validate": "node scripts/check.mjs",
+    "check": "npm run test && npm run validate"
+  }
+}
