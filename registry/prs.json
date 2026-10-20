@@ -10,7 +10,9 @@
       "id": "BNK-001",
       "title": "Monorepo/services inventory, ownership and CODEOWNERS",
       "origin": "original",
-      "prs": [],
+      "prs": [
+        1
+      ],
       "dependsOn": [],
       "externalDependencies": [],
       "externalPrerequisites": [],
@@ -573,5 +575,18 @@
       "acceptance": "Implementation, automated tests, documented evidence and independent acceptance required."
     }
   ],
-  "pullRequests": []
+  "pullRequests": [
+    {
+      "id": 1,
+      "number": 1,
+      "title": "BNK-001: Foundational bank-neutral engine, tenant controls and canonical roadmap",
+      "state": "open",
+      "url": "https://github.com/neophilism/Prosperity-Banking-Engine/pull/1",
+      "createdAt": "2026-10-20T19:42:20Z",
+      "updatedAt": "2026-10-20T19:42:20Z",
+      "mergedAt": null,
+      "closedAt": null,
+      "draft": false
+    }
+  ]
 }
