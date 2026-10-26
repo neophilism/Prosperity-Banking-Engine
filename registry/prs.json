@@ -4,7 +4,7 @@
   "roadmapVersion": 1,
   "planVerified": true,
   "plannedPrCount": 47,
-  "observedAt": "2026-10-26T07:02:58Z",
+  "observedAt": "2026-10-26T07:05:22Z",
   "units": [
     {
       "id": "BNK-001",
@@ -594,13 +594,13 @@
       "id": 5013436435,
       "number": 3,
       "title": "BNK-002: Add threat model and data classification",
-      "state": "open",
+      "state": "closed",
       "url": "https://github.com/neophilism/Prosperity-Banking-Engine/pull/3",
       "createdAt": "2026-10-26T07:02:58Z",
-      "updatedAt": "2026-10-26T07:02:58Z",
-      "mergedAt": null,
-      "closedAt": null,
-      "draft": true
+      "updatedAt": "2026-10-26T07:05:22Z",
+      "mergedAt": "2026-10-26T07:05:21Z",
+      "closedAt": "2026-10-26T07:05:21Z",
+      "draft": false
     }
   ]
 }
