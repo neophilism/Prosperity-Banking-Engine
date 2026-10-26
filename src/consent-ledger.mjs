@@ -20,11 +20,11 @@ export class ConsentLedger {
   assertVerifiedIdentity(identity);
   bounded(consentId,'Consent ID');bounded(purpose,'Consent purpose');bounded(policyVersion,'Policy version');bounded(requestId,'Request ID');
   ensure(Number.isSafeInteger(now)&&now>=0&&Number.isSafeInteger(expiresAt)&&expiresAt>now,'INVALID_CONSENT','Consent expiry must be in the future');
-  const normalizedScopes=normalizeScopes(scopes),key=`${identity.tenantId}:${consentId}`,requestKey=`${identity.tenantId}:${requestId}`;
+  const normalizedScopes=normalizeScopes(scopes),key=`${identity.tenantId}:${consentId}`,requestKey=`${identity.tenantId}:${requestId}`,current=this.#current.get(key);
   const digest=JSON.stringify(['GRANTED',consentId,identity.issuer,identity.subject,normalizedScopes,purpose,policyVersion,expiresAt]);
   const replay=this.#requests.get(requestKey);
-  if(replay){ensure(replay.digest===digest,'REPLAY_MISMATCH','Consent request replay has different terms');return replay.result;}
-  ensure(!this.#current.has(key),'CONSENT_CONFLICT','Consent ID already exists');
+  if(replay){ensure(replay.digest===digest,'REPLAY_MISMATCH','Consent request replay has different terms');ensure(current?.type!=='REVOKED','CONSENT_REVOKED','Revoked consent cannot be re-granted by replay');return replay.result;}
+  ensure(!current,'CONSENT_CONFLICT','Consent ID already exists');
   const result=this.#append({type:'GRANTED',tenantId:identity.tenantId,consentId,subjectIssuer:identity.issuer,subject:identity.subject,scopes:normalizedScopes,purpose,policyVersion,expiresAt,occurredAt:now,version:1,requestId});
   this.#current.set(key,result);this.#requests.set(requestKey,{digest,result});return result;
  }
@@ -36,6 +36,7 @@ export class ConsentLedger {
   const key=`${identity.tenantId}:${consentId}`,requestKey=`${identity.tenantId}:${requestId}`,current=this.#current.get(key);
   ensure(current,'CONSENT_NOT_FOUND','Consent does not exist');
   ensure(current.subjectIssuer===identity.issuer&&current.subject===identity.subject,'CONSENT_DENIED','Only the verified consent subject may revoke');
+  ensure(now>=current.occurredAt,'INVALID_TIME','Revocation time precedes the current consent event');
   const digest=JSON.stringify(['REVOKED',consentId,expectedVersion,reason]);
   const replay=this.#requests.get(requestKey);
   if(replay){ensure(replay.digest===digest,'REPLAY_MISMATCH','Consent request replay has different terms');return replay.result;}
