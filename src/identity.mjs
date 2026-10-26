@@ -10,6 +10,11 @@ function boundedIdentifier(value,label){
  return value;
 }
 
+export function assertVerifiedIdentity(identity){
+ ensure(verifiedIdentities.has(identity),'IDENTITY_UNVERIFIED','Verified identity is required');
+ return identity;
+}
+
 /** Accept identity claims only after a configured adapter has verified their authenticity. */
 export async function authenticateIdentity({credential,now=Date.now()},verifyCredential){
  ensure(typeof verifyCredential==='function','IDENTITY_VERIFIER_REQUIRED','A credential verifier is required');
@@ -44,7 +49,8 @@ export function createRolePolicy(definitions){
 }
 
 function matchingAssignments(identity,assignments,policy,now){
- ensure(verifiedIdentities.has(identity)&&TENANT.test(identity.tenantId??''),'IDENTITY_UNVERIFIED','Verified identity is required');
+ assertVerifiedIdentity(identity);
+ ensure(TENANT.test(identity.tenantId??''),'IDENTITY_UNVERIFIED','Verified identity is required');
  ensure(Array.isArray(assignments),'INVALID_ASSIGNMENTS','Role assignments are required');
  return assignments.filter(assignment=>{
   ensure(assignment&&typeof assignment==='object','INVALID_ASSIGNMENTS','Role assignment is invalid');
@@ -56,7 +62,7 @@ function matchingAssignments(identity,assignments,policy,now){
 }
 
 export function requireFreshMfa(identity,{now=Date.now(),maxAgeMs=300000,minFactors=2}={}){
- ensure(verifiedIdentities.has(identity),'IDENTITY_UNVERIFIED','Verified identity is required');
+ assertVerifiedIdentity(identity);
  ensure(Number.isSafeInteger(now)&&now>=0&&Number.isSafeInteger(maxAgeMs)&&maxAgeMs>=1&&maxAgeMs<=3600000,'INVALID_MFA_POLICY','MFA time policy is invalid');
  ensure(Number.isInteger(minFactors)&&minFactors>=2&&minFactors<=4,'INVALID_MFA_POLICY','MFA factor count is invalid');
  ensure(identity.expiresAt>now,'IDENTITY_EXPIRED','Verified identity is expired');
