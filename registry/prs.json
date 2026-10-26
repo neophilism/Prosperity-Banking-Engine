@@ -4,7 +4,7 @@
   "roadmapVersion": 1,
   "planVerified": true,
   "plannedPrCount": 47,
-  "observedAt": "2026-10-26T10:14:29Z",
+  "observedAt": "2026-10-26T10:36:30Z",
   "units": [
     {
       "id": "BNK-001",
@@ -691,12 +691,12 @@
     {
       "number": 11,
       "title": "BNK-009: Add tenant-isolated evidence vault",
-      "state": "open",
+      "state": "closed",
       "createdAt": "2026-10-26T10:28:23Z",
-      "updatedAt": "2026-10-26T10:28:23Z",
-      "mergedAt": null,
-      "closedAt": null,
-      "draft": true,
+      "updatedAt": "2026-10-26T10:33:46Z",
+      "mergedAt": "2026-10-26T10:33:45Z",
+      "closedAt": "2026-10-26T10:33:45Z",
+      "draft": false,
       "id": 5015898959,
       "url": "https://github.com/neophilism/Prosperity-Banking-Engine/pull/11"
     }
