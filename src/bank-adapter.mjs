@@ -24,7 +24,7 @@ export function createBankAdapterContract({adapterId,version,currencies,actions}
 function freezeEntry(entry){return Object.freeze({...entry});}
 
 export class FakeBankLedger {
- #contract;#gateway;#accounts=new Map();#requests=new Map();#entries=new Map();
+ #contract;#gateway;#accounts=new Map();#requests=new Map();#entries=new Map();#entryIds=new Set();
  constructor({contract,gateway,accounts=[]}){
   ensure(compiledContracts.has(contract),'INVALID_ADAPTER','Compiled bank adapter contract is required');
   ensure(gateway instanceof PolicyGateway,'INVALID_ADAPTER','Policy gateway is required');
@@ -60,16 +60,16 @@ export class FakeBankLedger {
   ensure(Number.isSafeInteger(expectedVersion)&&expectedVersion>=0,'INVALID_ENTRY','Expected account version is required');
   const [accountKey,account]=this.#account(identity,accountId);ensure(currency===account.currency,'INVALID_ENTRY','Entry currency must match the account');
   const requestKey=`${identity.tenantId}:${this.#contract.adapterId}:${requestId}`;
-  const digest=JSON.stringify([identity.issuer,identity.subject,this.#contract.version,entryId,accountId,direction,amountMinor,currency,expectedVersion,descriptionCode,now]);
+  const digest=JSON.stringify([identity.issuer,identity.subject,this.#contract.version,entryId,accountId,direction,amountMinor,currency,expectedVersion,descriptionCode]);
   const replay=this.#requests.get(requestKey);if(replay){ensure(replay.digest===digest,'REPLAY_MISMATCH','Adapter request replay has different terms');return replay.result;}
   ensure(account.version===expectedVersion,'VERSION_CONFLICT','Synthetic account version changed');
-  const entryKey=`${identity.tenantId}:${this.#contract.adapterId}:${entryId}`;ensure(!this.#entries.get(accountKey).some(entry=>entry.entryKey===entryKey),'ENTRY_CONFLICT','Synthetic entry ID already exists');
+  const entryKey=`${identity.tenantId}:${this.#contract.adapterId}:${entryId}`;ensure(!this.#entryIds.has(entryKey),'ENTRY_CONFLICT','Synthetic entry ID already exists');
   const delta=direction==='credit'?amountMinor:-amountMinor,nextBalance=account.balanceMinor+delta;
   ensure(Number.isSafeInteger(nextBalance),'AMOUNT_OVERFLOW','Synthetic balance exceeds safe integer bounds');ensure(nextBalance>=0,'INSUFFICIENT_FUNDS','Synthetic account cannot be overdrawn');
   const entry=freezeEntry({entryKey,entryId,tenantId:identity.tenantId,accountId,direction,amountMinor,currency,descriptionCode,postedAt:now,actor:Object.freeze({issuer:identity.issuer,subject:identity.subject}),syntheticOnly:true});
   const updated=Object.freeze({...account,balanceMinor:nextBalance,version:account.version+1});
   const result=Object.freeze({account:updated,entry,adapterId:this.#contract.adapterId,adapterVersion:this.#contract.version,syntheticOnly:true});
-  this.#accounts.set(accountKey,updated);this.#entries.get(accountKey).push(entry);this.#requests.set(requestKey,{digest,result});return result;
+  this.#accounts.set(accountKey,updated);this.#entries.get(accountKey).push(entry);this.#entryIds.add(entryKey);this.#requests.set(requestKey,{digest,result});return result;
  }
 
  listEntries({identity,accountId,assignments,consentLedger=null,consentId=null,now=Date.now()}){
