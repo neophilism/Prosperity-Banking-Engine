@@ -4,7 +4,7 @@
   "roadmapVersion": 1,
   "planVerified": true,
   "plannedPrCount": 47,
-  "observedAt": "2026-10-26T07:13:09Z",
+  "observedAt": "2026-10-26T08:45:42Z",
   "units": [
     {
       "id": "BNK-001",
@@ -50,7 +50,9 @@
       "id": "BNK-004",
       "title": "Identity, roles and MFA",
       "origin": "original",
-      "prs": [],
+      "prs": [
+        5
+      ],
       "dependsOn": [
         "BNK-003"
       ],
@@ -615,6 +617,18 @@
       "mergedAt": "2026-10-26T07:13:09Z",
       "closedAt": "2026-10-26T07:13:09Z",
       "draft": false
+    },
+    {
+      "id": 5014574681,
+      "number": 5,
+      "title": "BNK-004: Add verified identity roles and MFA controls",
+      "state": "open",
+      "url": "https://github.com/neophilism/Prosperity-Banking-Engine/pull/5",
+      "createdAt": "2026-10-26T08:45:42Z",
+      "updatedAt": "2026-10-26T08:45:42Z",
+      "mergedAt": null,
+      "closedAt": null,
+      "draft": true
     }
   ]
 }
