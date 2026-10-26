@@ -4,7 +4,7 @@
   "roadmapVersion": 1,
   "planVerified": true,
   "plannedPrCount": 47,
-  "observedAt": "2026-10-26T09:11:30Z",
+  "observedAt": "2026-10-26T09:14:49Z",
   "units": [
     {
       "id": "BNK-001",
@@ -664,13 +664,13 @@
       "id": 5014880994,
       "number": 8,
       "title": "BNK-007: Add event schemas and idempotent outbox",
-      "state": "open",
+      "state": "closed",
       "url": "https://github.com/neophilism/Prosperity-Banking-Engine/pull/8",
       "createdAt": "2026-10-26T09:11:30Z",
-      "updatedAt": "2026-10-26T09:11:30Z",
-      "mergedAt": null,
-      "closedAt": null,
-      "draft": true
+      "updatedAt": "2026-10-26T09:14:35Z",
+      "mergedAt": "2026-10-26T09:14:34Z",
+      "closedAt": "2026-10-26T09:14:35Z",
+      "draft": false
     }
   ]
 }
