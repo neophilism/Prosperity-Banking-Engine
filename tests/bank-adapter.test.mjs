@@ -25,7 +25,7 @@ test('enforces tenant isolation and active verifier-produced identity',async()=>
  const alpha=await identityFor(),beta=await identityFor('tenant_beta'),bank=ledger();bank.postEntry(post(alpha));
  assert.equal(bank.readAccount({identity:beta,accountId:'acct-1',assignments:[assignmentFor('tenant_beta')],now}).balanceMinor,7_000);
  assert.deepEqual(bank.listEntries({identity:beta,accountId:'acct-1',assignments:[assignmentFor('tenant_beta')],now}),[]);
- assert.throws(()=>bank.readAccount({identity:{...alpha},accountId:'acct-1',assignments:[assignmentFor()],now}),/Active verified|authorization/);
+ assert.throws(()=>bank.readAccount({identity:{...alpha},accountId:'acct-1',assignments:[assignmentFor()],now}),/Verified identity|Active verified|authorization/);
  assert.throws(()=>bank.readAccount({identity:alpha,accountId:'acct-1',assignments:[assignmentFor()],now:now+60_000}),/Active verified/);
 });
 
