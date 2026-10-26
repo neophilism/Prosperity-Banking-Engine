@@ -36,11 +36,11 @@ export class EventOutbox {
   ensure(Number.isSafeInteger(occurredAt)&&occurredAt>=0&&occurredAt<=now,'INVALID_EVENT','Event time must be a nonnegative time no later than now');
   const normalized=normalizeJson(payload);for(const field of schema.requiredFields)ensure(Object.hasOwn(normalized,field),'INVALID_EVENT',`Required payload field ${field} is missing`);
   const requestKey=`${identity.tenantId}:${idempotencyKey}`,eventKey=`${identity.tenantId}:${eventId}`;
-  const digest=JSON.stringify([schema.type,schema.version,eventId,aggregateId,occurredAt,normalized]);
-  const replay=this.#requests.get(requestKey);if(replay){ensure(replay.digest===digest,'REPLAY_MISMATCH','Outbox request replay has different terms');return replay.result;}
+  const digest=JSON.stringify([identity.issuer,identity.subject,schema.type,schema.version,eventId,aggregateId,occurredAt,normalized]);
+  const replay=this.#requests.get(requestKey);if(replay){ensure(replay.digest===digest,'REPLAY_MISMATCH','Outbox request replay has different terms');return this.#events.get(replay.eventKey);}
   ensure(!this.#events.has(eventKey),'EVENT_CONFLICT','Event ID already exists');
   const result=Object.freeze({eventId,tenantId:identity.tenantId,type:schema.type,schemaVersion:schema.version,aggregateId,occurredAt,payload:freezeJson(normalized),producer:Object.freeze({issuer:identity.issuer,subject:identity.subject}),state:'PENDING',deliveryVersion:0,lease:null,publishedAt:null,syntheticOnly:true});
-  this.#events.set(eventKey,result);this.#requests.set(requestKey,{digest,result});return result;
+  this.#events.set(eventKey,result);this.#requests.set(requestKey,{digest,eventKey});return result;
  }
 
  claim(identity,{workerId,limit=10,leaseMs=30_000,now=Date.now()}){
