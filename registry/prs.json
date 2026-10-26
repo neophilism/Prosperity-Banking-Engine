@@ -675,13 +675,13 @@
       "draft": false
     },
     {
-      "id": 5014980000,
+      "id": 5015635646,
       "number": 10,
       "title": "BNK-008: Add bank adapter contract and fake ledger",
       "state": "open",
       "url": "https://github.com/neophilism/Prosperity-Banking-Engine/pull/10",
       "createdAt": "2026-10-26T10:09:37Z",
-      "updatedAt": "2026-10-26T10:09:37Z",
+      "updatedAt": "2026-10-26T10:09:56Z",
       "mergedAt": null,
       "closedAt": null,
       "draft": true
