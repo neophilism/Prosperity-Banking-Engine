@@ -41,6 +41,8 @@ test('denies missing or failing consent evidence',async()=>{
  consentLedger.grant(identity,{consentId:'consent-1',scopes:['accounts:read'],purpose:'customer-request',policyVersion:'consent-v1',expiresAt:now+30_000,requestId:'grant-1',now});
  consentLedger.revoke(identity,{consentId:'consent-1',expectedVersion:1,reason:'customer-request',requestId:'revoke-1',now:now+1});
  assert.equal(gateway.decide({...base,consentLedger,consentId:'consent-1'}).reason,'CONSENT_DENIED');
+ class ForgedConsentLedger extends ConsentLedger {permits(){return true;}}
+ assert.equal(gateway.decide({...base,consentLedger:new ForgedConsentLedger(),consentId:'consent-1'}).reason,'CONSENT_DENIED');
 });
 
 test('policy compilation rejects ambiguity and freezes rules',()=>{
