@@ -4,7 +4,7 @@
   "roadmapVersion": 1,
   "planVerified": true,
   "plannedPrCount": 47,
-  "observedAt": "2026-10-26T08:51:49Z",
+  "observedAt": "2026-10-26T08:54:22Z",
   "units": [
     {
       "id": "BNK-001",
@@ -636,13 +636,13 @@
       "id": 5014647913,
       "number": 6,
       "title": "BNK-005: Add consent and revocation ledger",
-      "state": "open",
+      "state": "closed",
       "url": "https://github.com/neophilism/Prosperity-Banking-Engine/pull/6",
       "createdAt": "2026-10-26T08:51:49Z",
-      "updatedAt": "2026-10-26T08:51:49Z",
-      "mergedAt": null,
-      "closedAt": null,
-      "draft": true
+      "updatedAt": "2026-10-26T08:54:22Z",
+      "mergedAt": "2026-10-26T08:54:22Z",
+      "closedAt": "2026-10-26T08:54:22Z",
+      "draft": false
     }
   ]
 }
