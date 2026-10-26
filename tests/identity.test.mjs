@@ -26,6 +26,7 @@ test('verified identity is immutable and preserves only bounded authorization cl
 test('roles are tenant and subject bound, active, known and deny by default',async()=>{
  const identity=await authenticateIdentity({credential:'valid',now},verify);
  assert.equal(authorizeRole(identity,{assignments:[assignment()],policy,permission:'payments:prepare',now}).allow,true);
+ assert.throws(()=>authorizeRole({...identity},{assignments:[assignment()],policy,permission:'payments:prepare',now}),/Verified identity/);
  assert.throws(()=>authorizeRole(identity,{assignments:[assignment({tenantId:'tenant_beta'})],policy,permission:'payments:prepare',now}),/No active/);
  assert.throws(()=>authorizeRole(identity,{assignments:[assignment({subject:'user-8'})],policy,permission:'payments:prepare',now}),/No active/);
  assert.throws(()=>authorizeRole(identity,{assignments:[assignment({revoked:true})],policy,permission:'payments:prepare',now}),/No active/);
@@ -38,8 +39,10 @@ test('sensitive authorization requires fresh evidence from multiple verified met
  const identity=await authenticateIdentity({credential:'valid',now},verify);
  const allowed=authorizeRole(identity,{assignments:[assignment()],policy,permission:'payments:prepare',now,mfa:{maxAgeMs:60_000,minFactors:2}});
  assert.equal(allowed.mfa.satisfied,true);assert.equal(allowed.mfa.factorCount,2);
- assert.throws(()=>requireFreshMfa({...identity,authenticationMethods:['password']},{now,maxAgeMs:60_000}),/Multiple/);
- assert.throws(()=>requireFreshMfa({...identity,authenticatedAt:now-60_001},{now,maxAgeMs:60_000}),/Fresh/);
+ const single=await authenticateIdentity({credential:'valid',now},async()=>({...verifiedClaims,authenticationMethods:['password']}));
+ const stale=await authenticateIdentity({credential:'valid',now},async()=>({...verifiedClaims,authenticatedAt:now-60_001}));
+ assert.throws(()=>requireFreshMfa(single,{now,maxAgeMs:60_000}),/Multiple/);
+ assert.throws(()=>requireFreshMfa(stale,{now,maxAgeMs:60_000}),/Fresh/);
  assert.throws(()=>authorizeRole(identity,{assignments:[assignment()],policy,permission:'payments:prepare',now,mfa:{minFactors:1}}),/factor count/);
 });
 
