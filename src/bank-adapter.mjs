@@ -59,9 +59,9 @@ export class FakeBankLedger {
   const requestKey=`${identity.tenantId}:${requestId}`,digest=JSON.stringify([identity.issuer,identity.subject,accountId,amountMinor,currency,destinationToken]);
   const replay=this.#requests.get(requestKey);if(replay){ensure(replay.digest===digest,'REPLAY_MISMATCH','Payment replay has different terms');return replay.receipt;}
   ensure(account.balanceMinor>=amountMinor,'INSUFFICIENT_SYNTHETIC_FUNDS','Synthetic account has insufficient funds');
-  this.#accounts.set(accountKey,Object.freeze({...account,balanceMinor:account.balanceMinor-amountMinor}));
-  const transactionId=`sim-${requestId}`,transaction=Object.freeze({tenantId:identity.tenantId,accountId,transactionId,amountMinor:-amountMinor,currency,description:`Simulated payment to ${destinationToken}`,state:'SIMULATED',settled:false,syntheticOnly:true});
-  ensure(!this.#transactions.has(`${identity.tenantId}:${transactionId}`),'TRANSACTION_CONFLICT','Synthetic transaction already exists');this.#transactions.set(`${identity.tenantId}:${transactionId}`,transaction);
+  const transactionId=`sim-${requestId}`,transactionKey=`${identity.tenantId}:${transactionId}`;bounded(transactionId,'Transaction ID');ensure(!this.#transactions.has(transactionKey),'TRANSACTION_CONFLICT','Synthetic transaction already exists');
+  const transaction=Object.freeze({tenantId:identity.tenantId,accountId,transactionId,amountMinor:-amountMinor,currency,description:`Simulated payment to ${destinationToken}`,state:'SIMULATED',settled:false,syntheticOnly:true});
+  this.#accounts.set(accountKey,Object.freeze({...account,balanceMinor:account.balanceMinor-amountMinor}));this.#transactions.set(transactionKey,transaction);
   const receipt=Object.freeze({requestId,transactionId,state:'SIMULATED',settled:false,tenantId:identity.tenantId,syntheticOnly:true});this.#requests.set(requestKey,{digest,receipt});return receipt;
  }
 }
