@@ -11,11 +11,11 @@ const rolePolicy=createRolePolicy([{name:'operator',permissions:['bank:read','ba
 const policy=createGatewayPolicy({version:'bank-v1',rules:[{action:'bank.accounts.read',permission:'bank:read'},{action:'bank.entries.post',permission:'bank:post'}]});
 const gateway=()=>new PolicyGateway({policy,rolePolicy});
 const assignmentFor=(tenantId='tenant_alpha',subject='operator-7')=>({tenantId,issuer:'https://identity.example',subject,role:'operator',validFrom:now-10_000,validUntil:now+10_000,revoked:false});
-const ledger=()=>new FakeBankLedger({contract,gateway:gateway(),accounts:[{tenantId:'tenant_alpha',accountId:'acct-1',currency:'USD',balanceMinor:10_000},{tenantId:'tenant_beta',accountId:'acct-1',currency:'USD',balanceMinor:7_000}]});
+const ledger=()=>new FakeBankLedger({contract,gateway:gateway(),accounts:[{tenantId:'tenant_alpha',accountId:'acct-1',currency:'USD',balanceMinor:10_000},{tenantId:'tenant_alpha',accountId:'acct-2',currency:'USD',balanceMinor:3_000},{tenantId:'tenant_beta',accountId:'acct-1',currency:'USD',balanceMinor:7_000}]});
 const post=(identity,overrides={})=>({identity,requestId:'request-1',entryId:'entry-1',accountId:'acct-1',direction:'debit',amountMinor:2_500,currency:'USD',expectedVersion:0,descriptionCode:'synthetic-purchase',assignments:[assignmentFor(identity.tenantId,identity.subject)],now,...overrides});
 
 test('posts immutable integer-minor entries and replays exact requests',async()=>{
- const identity=await identityFor(),bank=ledger(),first=bank.postEntry(post(identity)),replay=bank.postEntry(post(identity));
+ const identity=await identityFor(),bank=ledger(),first=bank.postEntry(post(identity)),replay=bank.postEntry(post(identity,{now:now+1}));
  assert.strictEqual(replay,first);assert.equal(first.account.balanceMinor,7_500);assert.equal(first.account.version,1);assert.equal(first.entry.syntheticOnly,true);assert.equal(Object.isFrozen(first.entry),true);
  assert.deepEqual(bank.listEntries({identity,accountId:'acct-1',assignments:[assignmentFor()],now}),[first.entry]);assert.throws(()=>{first.account.balanceMinor=0;},TypeError);
  assert.throws(()=>bank.postEntry(post(identity,{amountMinor:2_499})),/different terms/);
@@ -41,6 +41,7 @@ test('rejects stale versions, duplicate entries, insufficient funds and unsafe b
  const identity=await identityFor(),bank=ledger();bank.postEntry(post(identity));
  assert.throws(()=>bank.postEntry(post(identity,{requestId:'request-2',entryId:'entry-2',expectedVersion:0})),/version changed/);
  assert.throws(()=>bank.postEntry(post(identity,{requestId:'request-3',expectedVersion:1})),/entry ID/);
+ assert.throws(()=>bank.postEntry(post(identity,{requestId:'request-cross-account',accountId:'acct-2'})),/entry ID/);
  assert.throws(()=>bank.postEntry(post(identity,{requestId:'request-4',entryId:'entry-4',expectedVersion:1,amountMinor:7_501})),/overdrawn/);
  const huge=new FakeBankLedger({contract,gateway:gateway(),accounts:[{tenantId:'tenant_alpha',accountId:'acct-1',currency:'USD',balanceMinor:Number.MAX_SAFE_INTEGER}]});
  assert.throws(()=>huge.postEntry(post(identity,{direction:'credit',amountMinor:1})),/safe integer/);
