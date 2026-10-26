@@ -51,7 +51,7 @@ export class PolicyGateway {
   }
   if(rule.consentScope!==null){
    if(!(consentLedger instanceof ConsentLedger)||typeof consentId!=='string')return deny('CONSENT_REQUIRED',identified);
-   try{if(!consentLedger.permits(identity,{consentId,scope:rule.consentScope,now}))return deny('CONSENT_DENIED',identified);}
+   try{if(!ConsentLedger.prototype.permits.call(consentLedger,identity,{consentId,scope:rule.consentScope,now}))return deny('CONSENT_DENIED',identified);}
    catch{return deny('CONSENT_DENIED',identified);}
   }
   return Object.freeze({allow:true,reason:'POLICY_ALLOWED',...identified,permission:rule.permission,roles:role.roles,consentScope:rule.consentScope,syntheticOnly:true});
