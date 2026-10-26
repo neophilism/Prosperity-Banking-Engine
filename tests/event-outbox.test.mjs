@@ -32,6 +32,7 @@ test('claims tenant events with exact renewable lease versions and publishes onc
  const reclaimed=outbox.claim(identity,{workerId:'publisher-b',now:now+100,leaseMs:100})[0];assert.equal(reclaimed.deliveryVersion,2);
  assert.throws(()=>outbox.complete(identity,{eventId:'event-1',workerId:'publisher-a',leaseVersion:1,now:now+101}),/Exact active/);
  const published=outbox.complete(identity,{eventId:'event-1',workerId:'publisher-b',leaseVersion:2,now:now+101});assert.equal(published.state,'PUBLISHED');assert.equal(published.publishedAt,now+101);
+ assert.strictEqual(outbox.enqueue(identity,schema,command()),published);
  assert.deepEqual(outbox.claim(identity,{workerId:'publisher-c',now:now+500}),[]);
 });
 
@@ -46,6 +47,7 @@ test('event and idempotency keys are tenant scoped while duplicate event IDs fai
  const alpha=await identityFor(),beta=await identityFor('tenant_beta'),outbox=new EventOutbox();outbox.enqueue(alpha,schema,command());outbox.enqueue(beta,schema,command());
  assert.equal(outbox.list(alpha,{now}).length,1);assert.equal(outbox.list(beta,{now}).length,1);
  assert.throws(()=>outbox.enqueue(alpha,schema,command({idempotencyKey:'request-2'})),/Event ID already/);
+ const other=await identityFor('tenant_alpha','worker-8');assert.throws(()=>outbox.enqueue(other,schema,command()),/different terms/);
 });
 
 test('expired identities cannot enqueue, claim, complete or list events',async()=>{
