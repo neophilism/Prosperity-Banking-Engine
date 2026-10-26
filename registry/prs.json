@@ -4,7 +4,7 @@
   "roadmapVersion": 1,
   "planVerified": true,
   "plannedPrCount": 47,
-  "observedAt": "2026-10-26T07:05:22Z",
+  "observedAt": "2026-10-26T07:11:01Z",
   "units": [
     {
       "id": "BNK-001",
@@ -36,7 +36,9 @@
       "id": "BNK-003",
       "title": "CI, ephemeral environments and secrets scanning",
       "origin": "original",
-      "prs": [],
+      "prs": [
+        4
+      ],
       "dependsOn": [
         "BNK-002"
       ],
@@ -601,6 +603,18 @@
       "mergedAt": "2026-10-26T07:05:21Z",
       "closedAt": "2026-10-26T07:05:21Z",
       "draft": false
+    },
+    {
+      "id": 5013516564,
+      "number": 4,
+      "title": "BNK-003: Add secure ephemeral CI controls",
+      "state": "open",
+      "url": "https://github.com/neophilism/Prosperity-Banking-Engine/pull/4",
+      "createdAt": "2026-10-26T07:11:01Z",
+      "updatedAt": "2026-10-26T07:11:01Z",
+      "mergedAt": null,
+      "closedAt": null,
+      "draft": true
     }
   ]
 }

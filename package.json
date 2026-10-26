@@ -9,6 +9,8 @@
   "scripts": {
     "test": "node --test",
     "validate": "node scripts/check.mjs",
-    "check": "npm run test && npm run validate"
+    "scan:secrets": "node scripts/scan-secrets.mjs",
+    "check:ci": "node scripts/check-ci-environment.mjs",
+    "check": "npm run test && npm run validate && npm run scan:secrets"
   }
 }
