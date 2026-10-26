@@ -120,7 +120,9 @@
       "id": "BNK-009",
       "title": "Tenant-isolated evidence vault",
       "origin": "original",
-      "prs": [],
+      "prs": [
+        11
+      ],
       "dependsOn": [
         "BNK-008"
       ],
@@ -685,6 +687,16 @@
       "mergedAt": "2026-10-26T10:14:29Z",
       "closedAt": "2026-10-26T10:14:29Z",
       "draft": false
+    },
+    {
+      "number": 11,
+      "title": "BNK-009: Add tenant-isolated evidence vault",
+      "state": "open",
+      "createdAt": "2026-10-26T10:28:23Z",
+      "updatedAt": "2026-10-26T10:28:23Z",
+      "mergedAt": null,
+      "closedAt": null,
+      "draft": true
     }
   ]
 }
