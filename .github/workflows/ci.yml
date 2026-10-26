@@ -15,7 +15,6 @@ jobs:
     env:
       DATA_MODE: synthetic
       PROSPERITY_ENVIRONMENT: ci-${{ github.run_id }}-${{ github.run_attempt }}
-      ENGINE_EPHEMERAL_DIR: ${{ runner.temp }}/prosperity-${{ github.run_id }}-${{ github.run_attempt }}
     steps:
       - uses: actions/checkout@v4
         with:
@@ -25,3 +24,5 @@ jobs:
           node-version: '22'
       - run: npm run check
       - run: npm run check:ci
+        env:
+          ENGINE_EPHEMERAL_DIR: ${{ runner.temp }}/prosperity-${{ github.run_id }}-${{ github.run_attempt }}
