@@ -21,3 +21,4 @@ export class FakePaymentProvider {
  #receipts=new Map();
  async submit(ctx,command){checkTenant(ctx,command);ensure(command.idempotencyKey&&command.customerId,'INVALID','Missing payment identity');ensure(Number.isSafeInteger(command.amountMinor)&&command.amountMinor>0,'INVALID','Invalid payment amount');const key=ctx.tenantId+':'+command.idempotencyKey;const digest=JSON.stringify([command.customerId,command.amountMinor,command.currency,command.destination]);const prev=this.#receipts.get(key);if(prev){ensure(prev.digest===digest,'REPLAY_MISMATCH','Replay has different terms');return {...prev.result};}const result={state:'SYNTHETIC_ONLY',reference:'demo-'+(this.#receipts.size+1),tenantId:ctx.tenantId};this.#receipts.set(key,{digest,result});return {...result};}
 }
+export * from './data-classification.mjs';

@@ -7,3 +7,5 @@ The engine is designed for financial institutions to configure and white-label i
 Development takes place in reviewed pull requests. Do not develop any downstream bank-branded application until every engine roadmap unit is completed, verified, and accepted.
 
 See the foundation pull request for architecture, security controls, module contracts, tests, and the canonical `registry/prs.json` implementation roadmap.
+
+The [threat model and data classification](docs/THREAT_MODEL.md) defines protected assets, trust boundaries, fail-closed handling rules, and the controls that later roadmap units must implement before production use.
