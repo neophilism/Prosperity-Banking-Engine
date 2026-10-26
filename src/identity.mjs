@@ -3,6 +3,7 @@ import {EngineError} from './index.mjs';
 const ensure=(condition,code,message)=>{if(!condition)throw new EngineError(code,message);};
 const IDENTIFIER=/^[a-zA-Z0-9][a-zA-Z0-9._:@/-]{0,255}$/;
 const TENANT=/^tenant_[a-z0-9_-]+$/;
+const verifiedIdentities=new WeakSet();
 
 function boundedIdentifier(value,label){
  ensure(typeof value==='string'&&IDENTIFIER.test(value),'INVALID_IDENTITY',`${label} is required`);
@@ -24,7 +25,9 @@ export async function authenticateIdentity({credential,now=Date.now()},verifyCre
  ensure(Number.isSafeInteger(claims.expiresAt)&&claims.expiresAt>now,'IDENTITY_EXPIRED','Verified identity is expired');
  ensure(Array.isArray(claims.authenticationMethods)&&claims.authenticationMethods.length>0&&claims.authenticationMethods.length<=8,'INVALID_AUTH_METHODS','Verified authentication methods are required');
  const authenticationMethods=[...new Set(claims.authenticationMethods.map(method=>boundedIdentifier(method,'Authentication method')))];
- return Object.freeze({tenantId,issuer,subject,authenticatedAt:claims.authenticatedAt,expiresAt:claims.expiresAt,authenticationMethods:Object.freeze(authenticationMethods),verified:true});
+ const identity=Object.freeze({tenantId,issuer,subject,authenticatedAt:claims.authenticatedAt,expiresAt:claims.expiresAt,authenticationMethods:Object.freeze(authenticationMethods),verified:true});
+ verifiedIdentities.add(identity);
+ return identity;
 }
 
 export function createRolePolicy(definitions){
@@ -41,7 +44,7 @@ export function createRolePolicy(definitions){
 }
 
 function matchingAssignments(identity,assignments,policy,now){
- ensure(identity?.verified===true&&TENANT.test(identity.tenantId??''),'IDENTITY_UNVERIFIED','Verified identity is required');
+ ensure(verifiedIdentities.has(identity)&&TENANT.test(identity.tenantId??''),'IDENTITY_UNVERIFIED','Verified identity is required');
  ensure(Array.isArray(assignments),'INVALID_ASSIGNMENTS','Role assignments are required');
  return assignments.filter(assignment=>{
   ensure(assignment&&typeof assignment==='object','INVALID_ASSIGNMENTS','Role assignment is invalid');
@@ -53,7 +56,7 @@ function matchingAssignments(identity,assignments,policy,now){
 }
 
 export function requireFreshMfa(identity,{now=Date.now(),maxAgeMs=300000,minFactors=2}={}){
- ensure(identity?.verified===true,'IDENTITY_UNVERIFIED','Verified identity is required');
+ ensure(verifiedIdentities.has(identity),'IDENTITY_UNVERIFIED','Verified identity is required');
  ensure(Number.isSafeInteger(now)&&now>=0&&Number.isSafeInteger(maxAgeMs)&&maxAgeMs>=1&&maxAgeMs<=3600000,'INVALID_MFA_POLICY','MFA time policy is invalid');
  ensure(Number.isInteger(minFactors)&&minFactors>=2&&minFactors<=4,'INVALID_MFA_POLICY','MFA factor count is invalid');
  ensure(identity.expiresAt>now,'IDENTITY_EXPIRED','Verified identity is expired');
