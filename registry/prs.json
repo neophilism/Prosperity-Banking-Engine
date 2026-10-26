@@ -4,7 +4,7 @@
   "roadmapVersion": 1,
   "planVerified": true,
   "plannedPrCount": 47,
-  "observedAt": "2026-10-26T07:11:01Z",
+  "observedAt": "2026-10-26T07:13:09Z",
   "units": [
     {
       "id": "BNK-001",
@@ -608,13 +608,13 @@
       "id": 5013516564,
       "number": 4,
       "title": "BNK-003: Add secure ephemeral CI controls",
-      "state": "open",
+      "state": "closed",
       "url": "https://github.com/neophilism/Prosperity-Banking-Engine/pull/4",
       "createdAt": "2026-10-26T07:11:01Z",
-      "updatedAt": "2026-10-26T07:11:01Z",
-      "mergedAt": null,
-      "closedAt": null,
-      "draft": true
+      "updatedAt": "2026-10-26T07:13:09Z",
+      "mergedAt": "2026-10-26T07:13:09Z",
+      "closedAt": "2026-10-26T07:13:09Z",
+      "draft": false
     }
   ]
 }
