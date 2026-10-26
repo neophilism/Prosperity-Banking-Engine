@@ -24,6 +24,7 @@ test('revocation is append-only, exact-versioned and immediately denies use',asy
  assert.equal(revoked.type,'REVOKED');assert.equal(revoked.version,2);assert.equal(ledger.permits(identity,{consentId:'consent-1',scope:'accounts:read',now:now+2}),false);
  const history=ledger.history(identity,'consent-1');assert.deepEqual(history.map(event=>event.type),['GRANTED','REVOKED']);assert.deepEqual(history.map(event=>event.sequence),[1,2]);
  assert.strictEqual(ledger.revoke(identity,{consentId:'consent-1',expectedVersion:1,reason:'customer-request',requestId:'request-revoke-1',now:now+50}),revoked);
+ assert.throws(()=>ledger.grant(identity,grant()),/cannot be re-granted/);
  assert.throws(()=>ledger.revoke(identity,{consentId:'consent-1',expectedVersion:2,reason:'again',requestId:'request-revoke-2',now:now+2}),/already revoked/);
 });
 
@@ -42,6 +43,7 @@ test('invalid grants and request-key collisions are rejected',async()=>{
  assert.throws(()=>ledger.grant(identity,grant({scopes:[]})),/scope/);
  assert.throws(()=>ledger.grant(identity,grant({expiresAt:now})),/future/);
  ledger.grant(identity,grant());
+ assert.throws(()=>ledger.revoke(identity,{consentId:'consent-1',expectedVersion:1,reason:'bad-clock',requestId:'revoke-past',now:now-1}),/precedes/);
  assert.throws(()=>ledger.grant(identity,grant({consentId:'consent-2'})),/different terms/);
  assert.throws(()=>ledger.grant(identity,grant({requestId:'request-grant-2'})),/already exists/);
 });
