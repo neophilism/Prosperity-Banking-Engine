@@ -26,3 +26,4 @@ export * from './identity.mjs';
 export * from './consent-ledger.mjs';
 export * from './policy-gateway.mjs';
 export * from './event-outbox.mjs';
+export * from './bank-adapter.mjs';
