@@ -4,7 +4,7 @@
   "roadmapVersion": 1,
   "planVerified": true,
   "plannedPrCount": 47,
-  "observedAt": "2026-10-26T09:02:09Z",
+  "observedAt": "2026-10-26T09:06:14Z",
   "units": [
     {
       "id": "BNK-001",
@@ -650,13 +650,13 @@
       "id": 5014721757,
       "number": 7,
       "title": "BNK-006: Add deny-by-default policy gateway",
-      "state": "open",
+      "state": "closed",
       "url": "https://github.com/neophilism/Prosperity-Banking-Engine/pull/7",
       "createdAt": "2026-10-26T09:02:09Z",
-      "updatedAt": "2026-10-26T09:02:09Z",
-      "mergedAt": null,
-      "closedAt": null,
-      "draft": true
+      "updatedAt": "2026-10-26T09:06:02Z",
+      "mergedAt": "2026-10-26T09:06:02Z",
+      "closedAt": "2026-10-26T09:06:02Z",
+      "draft": false
     }
   ]
 }
