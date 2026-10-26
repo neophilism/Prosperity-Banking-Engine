@@ -38,6 +38,12 @@ test('payment simulation fails closed for tenant, authorization, currency and fu
  assert.throws(()=>fake.simulatePayment(beta,{...base,authorized:authorized('tenant_alpha')}),/authorization/);
 });
 
+test('transaction conflicts fail before changing synthetic balances',async()=>{
+ const alpha=await identityFor(),fake=new FakeBankLedger(contract,{accounts:[{tenantId:'tenant_alpha',accountId:'checking-1',currency:'USD',balanceMinor:1000}],transactions:[{tenantId:'tenant_alpha',accountId:'checking-1',transactionId:'sim-pay-3',amountMinor:-1,currency:'USD',description:'Reserved synthetic transaction'}]});
+ assert.throws(()=>fake.simulatePayment(alpha,{requestId:'pay-3',accountId:'checking-1',amountMinor:100,currency:'USD',destinationToken:'vendor-token',authorized:authorized('tenant_alpha'),now}),/already exists/);
+ assert.equal(fake.accounts(alpha,{now})[0].balanceMinor,1000);
+});
+
 test('expired identities and undeclared capabilities cannot use the adapter',async()=>{
  const alpha=await identityFor(),readOnly=createBankAdapterContract({name:'read-only',version:'v1',capabilities:['accounts.read']}),fake=new FakeBankLedger(readOnly,{accounts:[{tenantId:'tenant_alpha',accountId:'checking-1',currency:'USD',balanceMinor:100}]});
  assert.throws(()=>fake.accounts(alpha,{now:alpha.expiresAt}),/Active verified/);
