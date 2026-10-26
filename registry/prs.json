@@ -4,7 +4,7 @@
   "roadmapVersion": 1,
   "planVerified": true,
   "plannedPrCount": 47,
-  "observedAt": "2026-10-26T09:14:49Z",
+  "observedAt": "2026-10-26T10:06:21Z",
   "units": [
     {
       "id": "BNK-001",
@@ -106,7 +106,9 @@
       "id": "BNK-008",
       "title": "Bank adapter contract and fake ledger",
       "origin": "original",
-      "prs": [],
+      "prs": [
+        9
+      ],
       "dependsOn": [
         "BNK-007"
       ],
@@ -671,6 +673,18 @@
       "mergedAt": "2026-10-26T09:14:34Z",
       "closedAt": "2026-10-26T09:14:35Z",
       "draft": false
+    },
+    {
+      "id": 5015682396,
+      "number": 9,
+      "title": "BNK-008: Add bank adapter contract and fake ledger",
+      "state": "open",
+      "url": "https://github.com/neophilism/Prosperity-Banking-Engine/pull/9",
+      "createdAt": "2026-10-26T10:06:21Z",
+      "updatedAt": "2026-10-26T10:06:21Z",
+      "mergedAt": null,
+      "closedAt": null,
+      "draft": true
     }
   ]
 }
