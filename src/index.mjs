@@ -24,3 +24,4 @@ export class FakePaymentProvider {
 export * from './data-classification.mjs';
 export * from './identity.mjs';
 export * from './consent-ledger.mjs';
+export * from './policy-gateway.mjs';
